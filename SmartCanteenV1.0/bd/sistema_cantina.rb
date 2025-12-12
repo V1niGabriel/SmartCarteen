@@ -1,38 +1,31 @@
-#Construção do banco de dados
+require_relative 'dbConn'
 
-require 'sqlite3'
-
-db = SQLite3::Database.new "SmartCanteenV1.0/bd/sistema_cantina.db"
-
-#Faz com que os resultados venham como Hash (mais fácil de ler) em vez de Array
-db.results_as_hash = true
-
-db.execute_batch <<-SQL
+@db.execute_batch <<-SQL
   CREATE TABLE IF NOT EXISTS produtos (
     id INTEGER PRIMARY KEY,
-    nome VARCHAR(45),
+    nome VARCHAR(45) NOT NULL,
     tipo VARCHAR(45),
-    preco DECIMAL(5,2)
+    preco DECIMAL(5,2) NOT NULL
   );
 
   CREATE TABLE IF NOT EXISTS clientes (
-    matricula VARCHAR(50) PRIMARY KEY,
+    id VARCHAR(50) PRIMARY KEY,
     nome VARCHAR(80)
   );
 
   CREATE TABLE IF NOT EXISTS vendas (
-    id_venda INTEGER PRIMARY KEY,
+    id_venda INTEGER PRIMARY KEY ,
     data_da_compra DATETIME DEFAULT CURRENT_TIMESTAMP,
-    cliete_matricula VARCHAR(50),
+    cliete_ID VARCHAR(50) NOT NULL,
 
-    FOREIGN KEY (cliete_matricula) REFERENCES clientes(matricula)
+    FOREIGN KEY (cliete_ID) REFERENCES clientes(id)
   );
 
   CREATE TABLE IF NOT EXISTS itens_da_venda (
-    id_item_venda INTEGER PRIMARY KEY,
-    id_produto INTEGER,
-    id_venda INTEGER,
-    quantidade INTEGER,
+    id_item_venda INTEGER PRIMARY KEY NOT NULL,
+    id_produto INTEGER NOT NULL,
+    id_venda INTEGER NOT NULL,
+    quantidade INTEGER NOT NULL,
 
     FOREIGN KEY (id_produto) REFERENCES produtos(id),
     FOREIGN KEY (id_venda) REFERENCES vendas(id_venda)
