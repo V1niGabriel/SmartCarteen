@@ -9,7 +9,7 @@ require_relative 'dbConn'
   );
 
   CREATE TABLE IF NOT EXISTS clientes (
-    id VARCHAR(50) PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
     nome VARCHAR(80)
   );
 

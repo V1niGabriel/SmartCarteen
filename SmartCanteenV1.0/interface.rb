@@ -15,7 +15,6 @@
 system("cls")
 
 require_relative 'functions/menu_principal.rb'
-require_relative 'functions/menu_relatorio.rb'
 
 def inicia_sistema()
   opcao = -1
@@ -77,6 +76,7 @@ def menuRelatorios()
     when 5
       produtoMaisVendido()
     when 0
+      puts "Retornando ao menu principal..."
       return
     else
       puts "Opção inválida. Tente novamente."

@@ -1,4 +1,5 @@
 require_relative '../bd/dbConn'
+require_relative 'validacao.rb'
 
 def listarClientes()
   clientes = @db.execute("SELECT * FROM clientes")
