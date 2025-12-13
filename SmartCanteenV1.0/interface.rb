@@ -14,21 +14,22 @@
 =end
 system("cls")
 
-require_relative 'functions/menu_principal.rb'
+require_relative 'functions/menu_principal'
+require_relative 'functions/utils'
 
 def inicia_sistema()
   opcao = -1
   while opcao != 0
-    puts "========================================="
-    puts "Escolha uma opção: "
+    sep()
     puts "1 - Cadastrar novo Produto"
     puts "2 - Cadastrar novo Cliente"
     puts "3 - Registrar Venda" 
     puts "4 - Relatórios"
     puts "0 - Sair"
-    puts "========================================="
-    
+    print "Escolha uma opção: "
     opcao = gets.chomp.to_i
+    sep()
+    
 
     case opcao
     when 1
@@ -38,10 +39,11 @@ def inicia_sistema()
     when 3
       registrarVenda()
     when 4
+      puts "Entrando no menu de relatórios..."
       menuRelatorios()
     when 0
       puts "Saindo do sistema..."
-      puts "========================================="
+      sep()
     else
       puts "Opção inválida. Tente novamente."
     end
@@ -53,7 +55,7 @@ def menuRelatorios()
   opcaoRelatorio = -1
 
   while opcaoRelatorio != 0
-    puts "========================================="
+    sep()
     puts "Menu de Relatórios"
     puts "1 - Listar Todos os Clientes"
     puts "2 - Listar Todos os Produtos"
@@ -61,9 +63,10 @@ def menuRelatorios()
     puts "4 - Total do valor vendido em um dia específico"
     puts "5 - Produto mais vendido"
     puts "0 - Voltar ao menu principal"
-    puts "========================================="
-    
+    print "Escolha uma opção: "
     opcaoRelatorio = gets.chomp.to_i
+    sep()
+    
     case opcaoRelatorio
     when 1
       listarClientes()

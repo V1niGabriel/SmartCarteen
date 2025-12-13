@@ -1,12 +1,16 @@
 require_relative '../bd/dbConn'
-require_relative 'validacao.rb'
+require_relative 'validacao'
+require_relative 'utils'
 
 def listarClientes()
   begin
     clientes = @db.execute("SELECT * FROM clientes")
 
-    clientes.each do |cliente|
-      puts "id: #{cliente['id']} - Nome: #{cliente['nome']}"
+    clientes.each_slice(3) do |grupo|
+      grupo.each do |cliente|
+        printf("| ID: %-2s - %-20s ", cliente['id'], cliente['nome'][0..19])
+      end
+      puts "|" 
     end
 
   rescue StandardError => e
@@ -24,8 +28,11 @@ def listarProdutos()
   begin
     produtos = @db.execute "SELECT * FROM produtos"
 
-    produtos.each do |produto|
-      puts "id: #{produto['id']} - Nome: #{produto['nome']} - Preço: R$#{'%.2f' % produto['preco']}"
+    produtos.each_slice(3) do |grupo|
+      grupo.each do |produto|
+        printf("| ID: %-2s - %-25s ", produto['id'], produto['nome'][0..24])  
+      end
+      puts "|" 
     end
 
   rescue StandardError => e
