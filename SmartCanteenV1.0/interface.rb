@@ -16,6 +16,7 @@ system("cls")
 
 require_relative 'functions/menu_principal.rb'
 require_relative 'functions/menu_relatorio.rb'
+require_relative './bd/dbConn'
 
 def inicia_sistema()
   opcao = -1

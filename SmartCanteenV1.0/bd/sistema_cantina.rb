@@ -9,7 +9,7 @@ require_relative 'dbConn'
   );
 
   CREATE TABLE IF NOT EXISTS clientes (
-    id VARCHAR(50) PRIMARY KEY,
+    id INTEGER PRIMARY KEY NOT NULL,
     nome VARCHAR(80)
   );
 
@@ -31,4 +31,3 @@ require_relative 'dbConn'
     FOREIGN KEY (id_venda) REFERENCES vendas(id_venda)
   );
 SQL
-
