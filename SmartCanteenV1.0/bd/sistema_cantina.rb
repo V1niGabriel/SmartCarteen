@@ -16,9 +16,9 @@ require_relative 'dbConn'
   CREATE TABLE IF NOT EXISTS vendas (
     id_venda INTEGER PRIMARY KEY ,
     data_da_compra DATETIME DEFAULT CURRENT_TIMESTAMP,
-    cliete_ID VARCHAR(50) NOT NULL,
+    cliente_ID VARCHAR(50) NOT NULL,
 
-    FOREIGN KEY (cliete_ID) REFERENCES clientes(id)
+    FOREIGN KEY (cliente_ID) REFERENCES clientes(id)
   );
 
   CREATE TABLE IF NOT EXISTS itens_da_venda (

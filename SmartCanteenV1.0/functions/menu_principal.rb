@@ -1,4 +1,3 @@
-require_relative '../bd/dbConn'
 require_relative 'menu_relatorio'
 
 
@@ -26,11 +25,25 @@ def registrarVenda()
   listarClientes()
   print "Selecione o cliente pelo ID: "
   clientSelecionado = gets.chomp
-  
-  addProdutos = 1
-  while addProdutos != 0
-    listarProdutos()
-    print "Selecione o cliente pelo ID: "
 
+  resultado = @db.execute("INSERT INTO vendas (cliente_ID) VALUES (?) RETURNING id_venda", [clientSelecionado])
+  idVenda = resultado[0]['id_venda']
+  
+  addProdutos = "s"
+  while addProdutos != "n"
+    listarProdutos()
+    print "Selecione o produto pelo ID: "
+    produtoSelecionado = gets.chomp.to_i
+    print "Digite a quantidade do produto selecionado: "
+    qte = gets.chomp.to_i
+
+    @db.execute("INSERT INTO itens_da_venda (id_produto, id_venda, quantidade) VALUES (?, ?, ?)", [produtoSelecionado, idVenda, qte])
+    print "Deseja adicionar mais produtos a venda? (s/n): "
+    addProdutos = gets.strip[0].downcase
+    while addProdutos != "s" && addProdutos != "n"
+      print "Opção inválida. Deseja adicionar mais produtos a venda? (s/n): "
+      addProdutos = gets.strip[0].downcase
+    end
+  end
 end
 

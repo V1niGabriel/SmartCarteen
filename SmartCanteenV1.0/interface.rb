@@ -12,20 +12,21 @@
 "4.4 – Apresentar o total do valor vendido em um dia específico"
 "4.5 – Apresentar qual produto é mais vendido"
 =end
+system("cls")
 
 require_relative 'functions/menu_principal.rb'
 require_relative 'functions/menu_relatorio.rb'
 
 def inicia_sistema()
-  opcao = 0
-  while opcao != 5
+  opcao = -1
+  while opcao != 0
     puts "========================================="
-    print "Escolha uma opção: "
+    puts "Escolha uma opção: "
     puts "1 - Cadastrar novo Produto"
     puts "2 - Cadastrar novo Cliente"
     puts "3 - Registrar Venda" 
     puts "4 - Relatórios"
-    puts "5 - Sair"
+    puts "0 - Sair"
     puts "========================================="
     
     opcao = gets.chomp.to_i
@@ -48,20 +49,22 @@ def inicia_sistema()
   end
 end
   
-end
 
 def menuRelatorios()
-  puts "========================================="
-  puts "Menu de Relatórios"
-  puts "1 - Listar Todos os Clientes"
-  puts "2 - Listar Todos os Produtos"
-  puts "3 - Listar Todas as Vendas"
-  puts "4 - Total do valor vendido em um dia específico"
-  puts "5 - Produto mais vendido"
-  puts "6 - Voltar ao menu principal"
-  puts "========================================="
+  opcaoRelatorio = -1
 
-  when opcaoRelatorio = gets.chomp.to_i
+  while opcaoRelatorio != 0
+    puts "========================================="
+    puts "Menu de Relatórios"
+    puts "1 - Listar Todos os Clientes"
+    puts "2 - Listar Todos os Produtos"
+    puts "3 - Listar Todas as Vendas"
+    puts "4 - Total do valor vendido em um dia específico"
+    puts "5 - Produto mais vendido"
+    puts "0 - Voltar ao menu principal"
+    puts "========================================="
+    
+    opcaoRelatorio = gets.chomp.to_i
     case opcaoRelatorio
     when 1
       listarClientes()
@@ -73,10 +76,13 @@ def menuRelatorios()
       totalVendasDia()
     when 5
       produtoMaisVendido()
-    when 6
+    when 0
       return
     else
       puts "Opção inválida. Tente novamente."
     end
+  end
 end
 
+
+inicia_sistema()
