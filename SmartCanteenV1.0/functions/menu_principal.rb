@@ -17,14 +17,14 @@ def cadastrarProduto()
     @db.execute("INSERT INTO produtos (nome, tipo, preco) VALUES (?, ?, ?)", [nome, tipo, preco])
       puts "Produto cadastrado com sucesso!"
 
-  rescue StandardError => e
-    puts "Erro inesperado: #{e.message}"
-  rescue NoMethodError => e
-    puts "Falha de lógica: #{e.message}"
-  rescue  SQLite3::SQLException => e 
-    puts "Erro DB 500 - Erro SQL: #{e.message}"
   rescue SQLite3::BusyException
     puts "Erro DB 501 - DB Ocupado: O arquivo está travado"
+  rescue SQLite3::SQLException => e
+    puts "Erro DB 500 - Erro SQL: #{e.message}"
+  rescue NoMethodError => e
+    puts "Falha de lógica: #{e.message}"
+  rescue StandardError => e
+    puts "Erro inesperado: #{e.message}"
   end
   sep(:mais)
 end
@@ -39,14 +39,14 @@ def cadastrarCliente()
     @db.execute("INSERT INTO clientes (nome) VALUES (?)", [nome])
     puts "Cliente cadastrado com sucesso!"
 
-  rescue StandardError => e
-    puts "Erro inesperado: #{e.message}"
-  rescue NoMethodError => e
-    puts "Falha de lógica: #{e.message}"
-  rescue  SQLite3::SQLException => e 
-    puts "Erro DB 500 - Erro SQL: #{e.message}"
   rescue SQLite3::BusyException
     puts "Erro DB 501 - DB Ocupado: O arquivo está travado"
+  rescue SQLite3::SQLException => e
+    puts "Erro DB 500 - Erro SQL: #{e.message}"
+  rescue NoMethodError => e
+    puts "Falha de lógica: #{e.message}"
+  rescue StandardError => e
+    puts "Erro inesperado: #{e.message}"
   end
   sep(:mais)
 end
