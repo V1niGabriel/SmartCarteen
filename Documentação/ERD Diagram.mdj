@@ -159,7 +159,7 @@
 									"parentStyle": true,
 									"left": 520,
 									"top": 29,
-									"width": 105.130859375,
+									"width": 108.025390625,
 									"height": 13,
 									"text": "Cliente"
 								},
@@ -186,7 +186,7 @@
 											"parentStyle": true,
 											"left": 525,
 											"top": 52,
-											"width": 95.130859375,
+											"width": 98.025390625,
 											"height": 13
 										},
 										{
@@ -202,7 +202,7 @@
 											"parentStyle": true,
 											"left": 525,
 											"top": 67,
-											"width": 95.130859375,
+											"width": 98.025390625,
 											"height": 13
 										}
 									],
@@ -210,7 +210,7 @@
 									"parentStyle": true,
 									"left": 520,
 									"top": 47,
-									"width": 105.130859375,
+									"width": 108.025390625,
 									"height": 38
 								}
 							],
@@ -218,7 +218,7 @@
 							"parentStyle": false,
 							"left": 520,
 							"top": 24,
-							"width": 105.130859375,
+							"width": 108.025390625,
 							"height": 61,
 							"nameLabel": {
 								"$ref": "AAAAAAGbEreoRf0zCA8="
@@ -292,22 +292,6 @@
 											"top": 227,
 											"width": 135.5908203125,
 											"height": 13
-										},
-										{
-											"_type": "ERDColumnView",
-											"_id": "AAAAAAGbEsLnr/4/jCU=",
-											"_parent": {
-												"$ref": "AAAAAAGbErfUEv1JqOU="
-											},
-											"model": {
-												"$ref": "AAAAAAGbEsLnqP4870E="
-											},
-											"font": "Arial;13;0",
-											"parentStyle": true,
-											"left": 501,
-											"top": 242,
-											"width": 135.5908203125,
-											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
@@ -315,7 +299,7 @@
 									"left": 496,
 									"top": 207,
 									"width": 145.5908203125,
-									"height": 53
+									"height": 38
 								}
 							],
 							"font": "Arial;13;0",
@@ -323,7 +307,7 @@
 							"left": 496,
 							"top": 184,
 							"width": 145.5908203125,
-							"height": 76,
+							"height": 64,
 							"nameLabel": {
 								"$ref": "AAAAAAGbErfUEv1I1E8="
 							},
@@ -499,7 +483,7 @@
 							"left": 312,
 							"top": 304,
 							"width": 132.603515625,
-							"height": 76,
+							"height": 61,
 							"nameLabel": {
 								"$ref": "AAAAAAGbEsIJLv4sWgY="
 							},
@@ -546,7 +530,7 @@
 									"font": "Arial;13;0",
 									"parentStyle": false,
 									"left": 551,
-									"top": 279,
+									"top": 267,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -582,7 +566,7 @@
 								"$ref": "AAAAAAGbErfUEv1Hy4I="
 							},
 							"lineStyle": 2,
-							"points": "536:260;536:334;445:334",
+							"points": "536:248;536:334;445:334",
 							"nameLabel": {
 								"$ref": "AAAAAAGbEsNhfP5QNVs="
 							},
@@ -947,7 +931,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGbEreoRf0wr+M="
 							},
-							"name": "Matrícula",
+							"name": "id_cliente",
 							"length": 0,
 							"primaryKey": true
 						},
@@ -1048,15 +1032,6 @@
 							},
 							"name": "Data da compra",
 							"length": 0
-						},
-						{
-							"_type": "ERDColumn",
-							"_id": "AAAAAAGbEsLnqP4870E=",
-							"_parent": {
-								"$ref": "AAAAAAGbErfUEf1FGn0="
-							},
-							"name": "valor total",
-							"length": 0
 						}
 					]
 				},
@@ -1083,7 +1058,8 @@
 								"$ref": "AAAAAAGbEsIJLf4pHI0="
 							},
 							"name": "id_item",
-							"length": 0
+							"length": 0,
+							"primaryKey": true
 						},
 						{
 							"_type": "ERDColumn",

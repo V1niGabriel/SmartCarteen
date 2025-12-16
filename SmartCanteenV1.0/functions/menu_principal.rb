@@ -52,7 +52,6 @@ def cadastrarCliente()
 end
 
 def registrarVenda()
-  sep(:mais)
   # Verifica se há produtos e clientes cadastrados e retorna se algum estiver vazio
   if tabela_vazia("produtos")
     puts "Nenhum produto cadastrado. Cadastre um produto antes de registrar uma venda."
