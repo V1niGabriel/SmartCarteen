@@ -21,8 +21,6 @@ def cadastrarProduto()
     puts "Erro DB 501 - DB Ocupado: O arquivo está travado"
   rescue SQLite3::SQLException => e
     puts "Erro DB 500 - Erro SQL: #{e.message}"
-  rescue NoMethodError => e
-    puts "Falha de lógica: #{e.message}"
   rescue StandardError => e
     puts "Erro inesperado: #{e.message}"
   end
@@ -43,8 +41,6 @@ def cadastrarCliente()
     puts "Erro DB 501 - DB Ocupado: O arquivo está travado"
   rescue SQLite3::SQLException => e
     puts "Erro DB 500 - Erro SQL: #{e.message}"
-  rescue NoMethodError => e
-    puts "Falha de lógica: #{e.message}"
   rescue StandardError => e
     puts "Erro inesperado: #{e.message}"
   end

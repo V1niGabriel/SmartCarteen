@@ -75,7 +75,10 @@ def menuRelatorios()
     when 3
       listarVendas()
     when 4
-      totalVendasDia()
+      puts "Digite uma data no formato DD-MM-AAAA"
+      data = gets.chomp
+      data_valida = validarData(data)
+      totalVendasDia(data_valida)
     when 5
       produtoMaisVendido()
     when 0
