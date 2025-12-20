@@ -44,18 +44,18 @@ def listarProdutos()
 end
 
 def listarVendas()
-  begin
-    vendas = @db.execute (
-    "
+  query = <<-SQL
     SELECT v.id_venda, v.data_da_compra, c.nome AS cliente, p.nome AS produto,
       iv.quantidade, p.preco, (iv.quantidade * p.preco) AS subtotal
-      FROM vendas v 
-      JOIN clientes c ON v.cliente_ID = c.id
-      JOIN itens_da_venda iv ON v.id_venda = iv.id_venda
-      JOIN produtos p ON iv.id_produto = p.id
-      GROUP BY v.id_venda;
-     "
-    )
+    FROM vendas v 
+    JOIN clientes c ON v.cliente_ID = c.id
+    JOIN itens_da_venda iv ON v.id_venda = iv.id_venda
+    JOIN produtos p ON iv.id_produto = p.id
+    ORDER BY v.id_venda;
+  SQL
+
+  begin
+    vendas = @db.execute (query)
     if vendas.empty?
       puts"Nenhua venda registrada no sistema"
     end
@@ -63,28 +63,34 @@ def listarVendas()
     puts "RELATÓRIO DE VENDAS".center(50)
     sep(:duplo)
 
-    vendas.each do |linha|
-      id = linha['id_venda'] 
-      data = linha['data_da_compra']
-      cliente = linha['cliente']
-      produto = linha['']
-      qtd = linha['quantidade']
-      preco = linha['preco']
-      subtotal = linha['subtotal']
+    #Agrupa todos os resultados pelo ID da venda
+    vendas_agrupadas = vendas.group_by {|linha| linha['id_venda']}
 
-      puts linha
-      puts "ID: #{id} | Data: #{data} | Cliente: #{cliente}"
-      puts "-> Produto: #{produto} | Qtd: #{qtd} | Unit: R$#{preco} | Total Item: R$#{'%.2f' % subtotal}"
-      sep(:simples)
+    vendas_agrupadas.each do |id_venda, itens|
+      #pega as informações gerais da primeira linha (já que são iguais oara todos os itens da venda)
+      venda_info = itens.first
+
+      #calcula o total da venda somando os subtotais de cada item
+      total_venda = itens.sum { |i| i['subtotal'].to_f}
+
+      sep(:estrela)
+      puts "ID: #{id_venda} | Data: #{venda_info['data_da_compra']} | Cliente: #{venda_info['cliente']}"
+      puts "TOTAL DA VENDA: R$ #{'%.2f' % total_venda}"
+      puts "PRODUTOS:"
+
+      #loop apenas nos itens da venda específica
+      itens.each do |item|
+        puts "  -> #{item['produto']} | Qtd: #{item['quantidade']} | Preço: R$ #{item['preco']} | Subtotal: R$ #{item['subtotal']}"
+      end
     end
-    
+    sep(:simples)
+
   rescue SQLite3::SQLException => e
     puts "Erro DB 500 - Erro SQL: #{e.message}"
   rescue StandardError => e
     puts "Erro inesperado: #{e.message}"
   end
 end 
-
 
 def validarData(data)
   while true
