@@ -55,7 +55,7 @@ def listarVendas()
   SQL
 
   begin
-    vendas = @db.execute (query)
+    vendas = @db.execute(query)
     if vendas.empty?
       puts"Nenhua venda registrada no sistema"
     end
@@ -210,3 +210,4 @@ def produtoMaisVendido
     puts "Erro inesperado: #{e.message}"
   end
 end
+
