@@ -45,10 +45,18 @@ end
 
 def listarVendas()
   query = <<-SQL
-    SELECT v.id_venda, v.data_da_compra, c.nome AS cliente, p.nome AS produto,
-      iv.quantidade, p.preco, (iv.quantidade * p.preco) AS subtotal
+    SELECT 
+      v.id_venda, v.data_da_compra, 
+      c.nome AS cliente,
+      p.nome AS produto,
+      f.nome AS vendedor,
+      crg.nome_cargo AS cargo,
+      iv.quantidade, p.preco, 
+      (iv.quantidade * p.preco) AS subtotal
     FROM vendas v 
     JOIN clientes c ON v.cliente_ID = c.id
+    JOIN funcionarios f ON v.id_vendedor = f.id
+    JOIN cargos crg ON f.cargos_idcargos = crg.idcargos
     JOIN itens_da_venda iv ON v.id_venda = iv.id_venda
     JOIN produtos p ON iv.id_produto = p.id
     ORDER BY v.id_venda;
@@ -75,6 +83,7 @@ def listarVendas()
 
       sep(:estrela)
       puts "ID: #{id_venda} | Data: #{venda_info['data_da_compra']} | Cliente: #{venda_info['cliente']}"
+      puts "Vendedor: #{venda_info['vendedor']} (#{venda_info['cargo']})"
       puts "TOTAL DA VENDA: R$ #{'%.2f' % total_venda}"
       puts "PRODUTOS:"
 
