@@ -3,6 +3,7 @@ system("cls")
 require_relative 'config/path'
 
 def inicia_sistema()
+  prompt = TTY::Prompt.new
   logado = false
 
   loop do
@@ -20,8 +21,7 @@ def inicia_sistema()
       return 
     end
 
-    print "Senha: "
-    senha = gets.chomp
+    senha = prompt.mask("Senha:")
 
     if login(cpf, senha)
       puts "\n✅ Login efetuado com sucesso!"
@@ -36,20 +36,23 @@ def inicia_sistema()
   end
   
   if logado
+    menu_opcoes = {
+      "Cadastrar novo Produto" => 1,
+      "Cadastrar novo Cliente" => 2,
+      "Registrar Venda" => 3,
+      "Relatórios" => 4,
+    }
+    if Sessao.atual['cargo'] == 'Gerente'
+      menu_opcoes["Cadastrar novo Funcionário"] = 5
+    end
+    menu_opcoes["Sair (Logout)"] = 0
+
     opcao = -1
     while opcao != 0      
       sep()
       puts "MENU PRINCIPAL - Usuário: #{Sessao.atual['nome']}" 
       sep()
-      
-      puts "1 - Cadastrar novo Produto"
-      puts "2 - Cadastrar novo Cliente"
-      puts "3 - Registrar Venda" 
-      puts "4 - Relatórios"
-      puts "5 - cadastrar novo Funcionário" if Sessao.atual['cargo'] == 'Gerente'
-      puts "0 - Sair (Logout)"
-      print "Escolha uma opção: "
-      opcao = gets.chomp.to_i
+      opcao = prompt.select("Escolha uma opção:", menu_opcoes)
       sep()
 
       case opcao
@@ -73,7 +76,7 @@ def inicia_sistema()
         logout()
         sep()
       else
-        puts "Opção inválida."
+        puts "Opção #{opcao} inválida."
         sleep(1)
       end
     end
@@ -82,21 +85,22 @@ end
   
 
 def menuRelatorios()
-  opcaoRelatorio = -1
+  prompt = TTY::Prompt.new
+  opcoes_relatorio = {
+      "Listar Todos os Clientes" => 1,
+      "Listar Todos os Produtos" => 2,
+      "Listar Todas as Vendas" => 3,
+      "Total vendido em um dia específico" => 4,
+      "Produto mais vendido" => 5,
+      "Total de atendimentos por funcionário (Dia)" => 6,
+      "Total vendido por funcionário (Dia)" => 7,
+      "Voltar ao menu principal" => 0
+    }
 
+  opcaoRelatorio = -1
   while opcaoRelatorio != 0
     sep()
-    puts "Menu de Relatórios"
-    puts "1 - Listar Todos os Clientes"
-    puts "2 - Listar Todos os Produtos"
-    puts "3 - Listar Todas as Vendas"
-    puts "4 - Total do valor vendido em um dia específico"
-    puts "5 - Produto mais vendido"
-    puts "6 - Total de atendimentos realizados por cada atendente em um dia específico"
-    puts "7 - Total de valor vendido por cada atendente em um dia específico"
-    puts "0 - Voltar ao menu principal"
-    print "Escolha uma opção: "
-    opcaoRelatorio = gets.chomp.to_i
+    opcaoRelatorio = prompt.select("Menu de Relatórios", opcoes_relatorio, per_page: 10)
     sep()
     
     case opcaoRelatorio

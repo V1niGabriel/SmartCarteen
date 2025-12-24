@@ -1,8 +1,5 @@
 require_relative '../config/path'
-<<<<<<<< HEAD:SmartCanteen_V-2.0/controllers/menuPrincipalController.rb
-# require_relative 'models/**'
-========
->>>>>>>> bea5fcd3dd455b07d748961fbdf6179d168c7ae1:SmartCanteen_V-2.0/src/menu_principal.rb
+require 'tty-prompt'
 
 def cadastrarProduto()
   sep(:mais)
@@ -66,13 +63,12 @@ def cadastrarFuncionario()
     print "Digite o ID do cargo do funcionário: "
     cargo_id = gets.chomp.to_i
     sep(:simples)
-    print "Digite a senha do funcionário: "
-    senha = gets.chomp
+    senha = prompt.mask("Digite a senha do funcionário:")
 
-    novo_funcionario = Funcionario.new(nome, cpf, telefone, senha)
+    novo_funcionario = Funcionario.new(nome, cpf, telefone, cargo_id, senha)
 
-    if novo_cliente.salvar(@db)
-      puts "Cliente '#{novo_cliente.nome}' cadastrado com sucesso!"
+    if novo_funcionario.salvar()
+      puts "Funcionario '#{novo_funcionario.nome}' cadastrado com sucesso!"
     end
 
   rescue StandardError => e

@@ -1,4 +1,4 @@
-require_relative 'item_venda'
+require_relative '../config/path'
 
 class Venda
   attr_accessor :cliente, :itens, :data
@@ -20,10 +20,11 @@ class Venda
   end
 
   def salvar
+    id_funcionario= Sessao.atual['id']
     # Usamos transaction para garantir que se um item falhar, a venda toda é cancelada
     DB.transaction do
       # 1. Salva o cabeçalho da Venda
-      DB.execute("INSERT INTO vendas (cliente_ID) VALUES (?)", [@cliente.id])
+      DB.execute("INSERT INTO vendas (cliente_ID, id_vendedor) VALUES (?, ?)", [@cliente.id, id_funcionario])
       
       # 2. Pega o ID que o banco acabou de criar para essa venda
       id_venda_gerado = DB.last_insert_row_id
