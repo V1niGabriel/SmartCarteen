@@ -1,5 +1,8 @@
 require_relative '../config/path'
+<<<<<<<< HEAD:SmartCanteen_V-2.0/controllers/menuPrincipalController.rb
 # require_relative 'models/**'
+========
+>>>>>>>> bea5fcd3dd455b07d748961fbdf6179d168c7ae1:SmartCanteen_V-2.0/src/menu_principal.rb
 
 def cadastrarProduto()
   sep(:mais)
@@ -19,7 +22,7 @@ def cadastrarProduto()
     novo_produto = Produto.new(nome, tipo, preco)
 
     #Persistência
-    if novo_produto.salvar(@db)
+    if novo_produto.salvar
       puts "Produto '#{novo_produto.nome}' cadastrado com sucesso"
     else 
       puts "Falha ao cadastrar produto"
@@ -37,7 +40,7 @@ def cadastrarCliente()
 
     novo_cliente = Cliente.new(nome)
 
-    if novo_cliente.salvar(@db)
+    if novo_cliente.salvar
       puts "Cliente '#{novo_cliente.nome}' cadastrado com sucesso!"
     end
 
@@ -80,6 +83,11 @@ end
 
 def registrarVenda()
   # (Mantenha as verificações de tabela_vazia se desejar, ou use Produto.todos(@db).empty?)
+  # Verificação de segurança no início
+  if DB.nil?
+    puts "Erro crítico: Conexão com banco de dados não estabelecida."
+    return
+  end
   
   sep(:traco)
   listarClientes()
@@ -92,7 +100,7 @@ def registrarVenda()
     id_selecionado = gets.chomp.to_i
     
     # O método estático busca e retorna o Objeto ou nil
-    cliente_obj = Cliente.buscar_por_id(id_selecionado, @db)
+    cliente_obj = Cliente.buscar_por_id(id_selecionado)
     
     break if cliente_obj # Se encontrou o objeto, sai do loop
     puts "ID inválido. Cliente não encontrado."
@@ -115,7 +123,7 @@ def registrarVenda()
     loop do
       print "Selecione o produto pelo ID: "
       id_prod = gets.chomp.to_i
-      produto_obj = Produto.buscar_por_id(id_prod, @db)
+      produto_obj = Produto.buscar_por_id(id_prod)
 
       break if produto_obj
       puts "ID inválido. Produto não encontrado."
@@ -137,7 +145,7 @@ def registrarVenda()
   sep(:mais)
   puts "Finalizando venda..."
   
-  if nova_venda.salvar(@db)
+  if nova_venda.salvar
     puts "Venda registrada com sucesso!"
     puts "Total Final: R$ #{nova_venda.total_venda}"
   else

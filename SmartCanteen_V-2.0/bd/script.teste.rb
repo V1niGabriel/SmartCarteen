@@ -45,7 +45,7 @@ DB.execute_batch <<-SQL
   -- 5. Tabela de Vendas
   CREATE TABLE vendas (
     id_venda INTEGER PRIMARY KEY,
-    data_da_compra DATETIME NOT NULL,
+    data_da_compra DATETIME DEFAULT CURRENT_TIMESTAMP,
     cliente_ID INTEGER NOT NULL,
     id_vendedor INTEGER NOT NULL,
     FOREIGN KEY (cliente_ID) REFERENCES clientes(id),

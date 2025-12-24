@@ -13,8 +13,8 @@ class ItemVenda
   end
 
   # O Item se salva, mas precisa saber o ID da venda pai
-  def salvar(db, id_venda_pai)
-    db.execute(
+  def salvar(id_venda_pai)
+    DB.execute(
       "INSERT INTO itens_da_venda (id_produto, id_venda, quantidade) VALUES (?, ?, ?)",
       [@produto.id, id_venda_pai, @quantidade]
     )

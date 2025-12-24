@@ -9,7 +9,7 @@ require 'date'
 
 def listarClientes()
   begin
-    clientes = @db.execute("SELECT * FROM clientes")
+    clientes = DB.execute("SELECT * FROM clientes")
 
     clientes.each_slice(3) do |grupo|
       grupo.each do |cliente|
@@ -29,7 +29,7 @@ end
 
 def listarProdutos()
   begin
-    produtos = @db.execute "SELECT * FROM produtos"
+    produtos = DB.execute "SELECT * FROM produtos"
 
     produtos.each_slice(3) do |grupo|
       grupo.each do |produto|
@@ -67,7 +67,7 @@ def listarVendas()
   SQL
 
   begin
-    vendas = @db.execute(query)
+    vendas = DB.execute(query)
     if vendas.empty?
       puts"Nenhua venda registrada no sistema"
     end
@@ -144,7 +144,7 @@ def totalVendasDia(data_valida)
       ORDER BY v.id_venda
     SQL
 
-    vendas = @db.execute(query, [data_inicio, data_fim])
+    vendas = DB.execute(query, [data_inicio, data_fim])
 
     if vendas.empty?
       puts "Nenhuma venda registrada em #{data_valida.strftime('%d/%m/%Y')}"
@@ -190,7 +190,7 @@ end
 
 def produtoMaisVendido
   begin
-    produto = @db.get_first_row <<-SQL
+    produto = DB.get_first_row <<-SQL
       SELECT 
         p.id AS id_produto,
         p.nome AS nome,
@@ -232,7 +232,7 @@ def atendimentosPorFuncionarioDia(data)
       WHERE v.data_da_compra BETWEEN ? AND ? GROUP BY f.id ORDER BY qtd DESC
     SQL
     
-    res = @db.execute(query, [data.strftime("%Y-%m-%d 00:00:00"), data.strftime("%Y-%m-%d 23:59:59")])
+    res = DB.execute(query, [data.strftime("%Y-%m-%d 00:00:00"), data.strftime("%Y-%m-%d 23:59:59")])
     puts "ATENDIMENTOS EM #{data.strftime('%d/%m/%Y')}".center(50); sep(:traco)
     res.each { |r| printf("| %-20s | %-12s | %3d vendas |\n", r['nome'], r['nome_cargo'], r['qtd']) }
 end
@@ -245,7 +245,7 @@ def valorVendidoPorFuncionarioDia(data)
       WHERE v.data_da_compra BETWEEN ? AND ? GROUP BY f.id ORDER BY total DESC
     SQL
 
-    res = @db.execute(query, [data.strftime("%Y-%m-%d 00:00:00"), data.strftime("%Y-%m-%d 23:59:59")])
+    res = DB.execute(query, [data.strftime("%Y-%m-%d 00:00:00"), data.strftime("%Y-%m-%d 23:59:59")])
     puts "FATURAMENTO POR ATENDENTE - #{data.strftime('%d/%m/%Y')}".center(50); sep(:traco)
     res.each { |r| printf("| %-25s | R$ %9.2f |\n", r['nome'], r['total']) }
 end
