@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 require_relative '../classes/cliente'
 require_relative '../classes/funcionario'
 require_relative '../classes/item_venda'
@@ -16,4 +14,3 @@ require_relative '../bd/dbConn'
 require_relative '../controllers/menuPrincipalController'
 require_relative '../controllers/menuRelaorioController'
 require_relative '../controllers/sistemaCotroller'
->>>>>>> e4734fb490ceb99af0d0193dcb041a35d06eaaf0

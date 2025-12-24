@@ -1,3 +1,4 @@
+require_relative '../config/path'
 class Pessoa
   attr_accessor :id, :nome 
 

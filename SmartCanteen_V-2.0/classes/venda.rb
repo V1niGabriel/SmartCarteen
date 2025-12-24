@@ -6,7 +6,7 @@ class Venda
   def initialize(cliente)
     @cliente = cliente # Objeto Cliente
     @itens = []        # Array para guardar objetos ItemVenda
-    @data = Time.now
+    # @data = Time.now
   end
 
   def adicionar_item(produto, quantidade)
@@ -19,18 +19,18 @@ class Venda
     @itens.sum { |item| item.total_item }
   end
 
-  def salvar(db)
+  def salvar
     # Usamos transaction para garantir que se um item falhar, a venda toda é cancelada
-    db.transaction do
+    DB.transaction do
       # 1. Salva o cabeçalho da Venda
-      db.execute("INSERT INTO vendas (cliente_ID) VALUES (?)", [@cliente.id])
+      DB.execute("INSERT INTO vendas (cliente_ID) VALUES (?)", [@cliente.id])
       
       # 2. Pega o ID que o banco acabou de criar para essa venda
-      id_venda_gerado = db.last_insert_row_id
+      id_venda_gerado = DB.last_insert_row_id
 
       # 3. Percorre cada item e manda ele se salvar vinculando a este ID
       @itens.each do |item|
-        item.salvar(db, id_venda_gerado)
+        item.salvar(id_venda_gerado)
       end
     end
     return true
